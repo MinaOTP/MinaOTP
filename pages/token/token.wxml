@@ -1,8 +1,50 @@
 <!--pages/token/token.wxml-->
 <view class="section">
-  <view class="flex-wrp">
-    <view class="flex-item">1</view>
-    <view class="flex-item">2</view>
-    <view class="flex-item">3</view>
+  <view class="token-wrp">
+    <view class="token-box">
+      <view class="token token-left">
+        <view class="issue">
+          <text>Google</text>  
+        </view>
+        <view class="remark">
+          <text>gin.lance.inside@hotmail.com</text>
+        </view>
+      </view>
+      <view class="token token-right">
+        <view class="digit">
+          <text>123321</text>
+        </view>
+      </view>
+    </view>
+    <view class="token-box">
+      <view class="token token-left">
+        <view class="issue">
+          <text>Github</text>  
+        </view>
+        <view class="remark">
+          <text>LanceGin</text>
+        </view>
+      </view>
+      <view class="token token-right">
+        <view class="digit">
+          <text>435356</text>
+        </view>
+      </view>
+    </view>
+    <view class="token-box">
+      <view class="token token-left">
+        <view class="issue">
+          <text>Server</text>  
+        </view>
+        <view class="remark">
+          <text>gin@test</text>
+        </view>
+      </view>
+      <view class="token token-right">
+        <view class="digit">
+          <text>643567</text>
+        </view>
+      </view>
+    </view>
   </view>
 </view>

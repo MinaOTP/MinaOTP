@@ -5,18 +5,43 @@ page {
 .section {
   background: white;
 }
-.flex-wrp {
+.token-wrp {
   flex-direction: column;
   background: #1a1a1a;
   color: #ffffff;
   border-top: 2px solid #222222;
   border-bottom: 2px solid #222222;
-  padding-left: 1rem;
+  padding-left: 4vw;
 }
-.flex-item {
+.token-box {
+  flex-direction: row;
   height: 15vh;
   border-bottom: 2px solid #222222;
 }
-.flex-item:last-child {
+.token-box:last-child {
   border-bottom: 0;
+}
+.token {
+  width: 46vw;
+  float: left;
+}
+.token-left {
+  position: relative;
+  left: 4vw;
+  top: 3vh;
+}
+.issue {
+  font-size: 1.4rem;
+}
+.remark {
+  font-size: .8rem;
+  color: #929292;
+}
+.token-right {
+  position: relative;
+  top: 3vh;
+  padding-left: 1rem;
+}
+.digit {
+  font-size: 2.6rem;
 }
