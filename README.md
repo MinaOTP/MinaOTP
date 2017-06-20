@@ -1,2 +1,2 @@
 # MiniOTP
-HOTP authenticator implement with wechat mini programs.
+TOTP authenticator implement with wechat mini programs.

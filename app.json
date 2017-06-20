@@ -1,0 +1,30 @@
+{
+  "pages":[
+    "pages/token/token",
+    "pages/user/user"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "MinaOTP",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "color": "#000000",
+    "selectedColor": "#48c23d",
+    "borderStyle": "black",
+    "position": "bottom",
+    "list": [{
+      "pagePath": "pages/token/token",
+      "text": "TOKEN",
+      "iconPath": "utils/icon/homepage.png",
+      "selectedIconPath": "utils/icon/homepage_fill.png"
+    }, {
+      "pagePath": "pages/user/user",
+      "text": "ABOUT",
+      "iconPath": "utils/icon/label.png",
+      "selectedIconPath": "utils/icon/label_fill.png"
+    }]
+  },
+  "debug": true
+}
