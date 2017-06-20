@@ -12,7 +12,12 @@
       </view>
       <view class="token token-right">
         <view class="digit">
-          <text>123321</text>
+          <text>1</text>
+          <text>2</text>
+          <text>3</text>
+          <text>4</text>
+          <text>3</text>
+          <text>1</text>
         </view>
       </view>
     </view>
@@ -27,7 +32,12 @@
       </view>
       <view class="token token-right">
         <view class="digit">
-          <text>435356</text>
+          <text>6</text>
+          <text>3</text>
+          <text>4</text>
+          <text>4</text>
+          <text>3</text>
+          <text>6</text>
         </view>
       </view>
     </view>
@@ -42,7 +52,12 @@
       </view>
       <view class="token token-right">
         <view class="digit">
-          <text>643567</text>
+          <text>2</text>
+          <text>1</text>
+          <text>1</text>
+          <text>0</text>
+          <text>1</text>
+          <text>1</text>
         </view>
       </view>
     </view>

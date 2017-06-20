@@ -45,3 +45,8 @@ page {
 .digit {
   font-size: 2.6rem;
 }
+.digit text {
+  width: 1ch;
+  display: inline-block;
+  text-align: center;
+}
