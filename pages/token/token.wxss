@@ -1,1 +1,22 @@
 /* pages/token/token.wxss */
+page {
+  background: #0d0d0d;
+}
+.section {
+  background: white;
+}
+.flex-wrp {
+  flex-direction: column;
+  background: #1a1a1a;
+  color: #ffffff;
+  border-top: 2px solid #222222;
+  border-bottom: 2px solid #222222;
+  padding-left: 1rem;
+}
+.flex-item {
+  height: 15vh;
+  border-bottom: 2px solid #222222;
+}
+.flex-item:last-child {
+  border-bottom: 0;
+}

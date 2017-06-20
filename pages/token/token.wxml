@@ -1,2 +1,8 @@
 <!--pages/token/token.wxml-->
-<text>pages/token/token.wxml</text>
+<view class="section">
+  <view class="flex-wrp">
+    <view class="flex-item">1</view>
+    <view class="flex-item">2</view>
+    <view class="flex-item">3</view>
+  </view>
+</view>
