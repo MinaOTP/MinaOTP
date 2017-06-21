@@ -6,7 +6,13 @@ const DEFAULT_DIGITS = 6
 
 // 基于时间生成token
 function generate(timenow, token) {
-  let hmac = CryptoJS.HMAC(CryptoJS.SHA1, int_to_bytestring(timenow), byte_secret(token))
+  // console.log(CryptoJS.SHA1)
+  // console.log(byte_secret(token))
+  // console.log(int_to_bytestring(timenow))
+  let hmac = CryptoJS.HMAC(CryptoJS.SHA1, byte_secret(token), int_to_bytestring(timenow))
+  // for (var i = 0; i < hmac.length; i++) {
+  //   console.log(hmac[i].charCodeAt())
+  // }
   let hmac_a = hmac.split("")
   let offset = hmac_a[hmac_a.length-1] & 0xf
   let code = (
@@ -26,22 +32,36 @@ function timecode(time) {
   let time_str = Date.parse(time).toString()
   let format_time = time_str.substring(0, time_str.length-3)
   let interval = DEFAULT_INTERVAL
-  return (parseInt(format_time) / interval)
+  return parseInt(parseInt(format_time) / interval)
 }
 
 // 获取定长补零
 function rjust(num, n) {
-  return Array(n > num ? (n - ('' + num).length + 1) : 0).join(0) + num;
+  return Array(n > num ? (n - ('' + num).length + 1) : 0).join(String.fromCharCode(0)) + num;
+}
+
+function arr_rjust(arr, n) {
+  if (arr.length >= n) {
+    arr = arr.splice(arr.length - 1 - n)
+    return arr
+  } else {
+    let diff = n - arr.length
+    for (let i = 0; i < diff; i++) {
+      arr.unshift(String.fromCharCode(0))
+    }
+    return arr
+  }
 }
 
 // int类型转换成byte二进制数据
 function int_to_bytestring(i, padding = 8) {
   let result = []
   while (i != 0) {
-    result.push(i & 0xFF)
+    result.push(String.fromCharCode(i & 0xFF))
     i >>= 8
   }
-  result = rjust(result.reverse().join(""), padding)
+  result = result.reverse()
+  result = arr_rjust(result, padding).join("")
   return result
 }
 
