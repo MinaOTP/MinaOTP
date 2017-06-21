@@ -37,7 +37,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let digit = TOTP.now("hjfdshgkjdshgkl")
+    let digit = TOTP.now("J22U6B3WIWRRBTAV")
     // console.log(digit)
   }
 })
