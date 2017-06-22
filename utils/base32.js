@@ -1,251 +1,170 @@
-; (function () {
+var MinaOTP = function (options) {
+  var construct,
 
-  // This would be the place to edit if you want a different
-  // Base32 implementation
+    // options
+    pad, dataBits, codeBits, keyString, arrayData,
 
-  var alphabet = '0123456789abcdefghjkmnpqrtuvwxyz'
-  var alias = { o: 0, i: 1, l: 1, s: 5 }
+    // private instance variables
+    mask, group, max,
 
-  /**
-   * Build a lookup table and memoize it
-   *
-   * Return an object that maps a character to its
-   * byte value.
-   */
+    // private methods
+    gcd, translate,
 
-  var lookup = function () {
-    var table = {}
-    // Invert 'alphabet'
-    for (var i = 0; i < alphabet.length; i++) {
-      table[alphabet[i]] = i
+    // public methods
+    encode, decode;
+
+  // pseudo-constructor
+  construct = function () {
+    var i, mag, prev;
+
+    // options
+    pad = options.pad || '';
+    dataBits = options.dataBits;
+    codeBits = options.codeBits;
+    keyString = options.keyString;
+    arrayData = options.arrayData;
+
+    // bitmasks
+    mag = Math.max(dataBits, codeBits);
+    prev = 0;
+    mask = [];
+    for (i = 0; i < mag; i += 1) {
+      mask.push(prev);
+      prev += prev + 1;
     }
-    // Splice in 'alias'
-    for (var key in alias) {
-      if (!alias.hasOwnProperty(key)) continue
-      table[key] = table['' + alias[key]]
+    max = prev;
+
+    // ouput code characters in multiples of this number
+    group = dataBits / gcd(dataBits, codeBits);
+  };
+
+  // greatest common divisor
+  gcd = function (a, b) {
+    var t;
+    while (b !== 0) {
+      t = b;
+      b = a % b;
+      a = t;
     }
-    lookup = function () { return table }
-    return table
-  }
+    return a;
+  };
 
-  /**
-   * A streaming encoder
-   *
-   *     var encoder = new base32.Encoder()
-   *     var output1 = encoder.update(input1)
-   *     var output2 = encoder.update(input2)
-   *     var lastoutput = encode.update(lastinput, true)
-   */
+  // the re-coder
+  translate = function (input, bitsIn, bitsOut, decoding) {
+    var i, len, chr, byteIn,
+      buffer, size, output,
+      write;
 
-  function Encoder() {
-    var skip = 0 // how many bits we will skip from the first byte
-    var bits = 0 // 5 high bits, carry from one byte to the next
-
-    this.output = ''
-
-    // Read one byte of input
-    // Should not really be used except by "update"
-    this.readByte = function (byte) {
-      // coerce the byte to an int
-      if (typeof byte == 'string') byte = byte.charCodeAt(0)
-
-      if (skip < 0) { // we have a carry from the previous byte
-        bits |= (byte >> (-skip))
-      } else { // no carry
-        bits = (byte << skip) & 248
+    // append a byte to the output
+    write = function (n) {
+      if (!decoding) {
+        output.push(keyString.charAt(n));
+      } else if (arrayData) {
+        output.push(n);
+      } else {
+        output.push(String.fromCharCode(n));
       }
+    };
 
-      if (skip > 3) {
-        // not enough data to produce a character, get us another one
-        skip -= 8
-        return 1
-      }
+    buffer = 0;
+    size = 0;
+    output = [];
 
-      if (skip < 4) {
-        // produce a character
-        this.output += alphabet[bits >> 3]
-        skip += 5
-      }
+    len = input.length;
+    for (i = 0; i < len; i += 1) {
+      // the new size the buffer will be after adding these bits
+      size += bitsIn;
 
-      return 0
-    }
-
-    // Flush any remaining bits left in the stream
-    this.finish = function (check) {
-      var output = this.output + (skip < 0 ? alphabet[bits >> 3] : '') + (check ? '$' : '')
-      this.output = ''
-      return output
-    }
-  }
-
-  /**
-   * Process additional input
-   *
-   * input: string of bytes to convert
-   * flush: boolean, should we flush any trailing bits left
-   *        in the stream
-   * returns: a string of characters representing 'input' in base32
-   */
-
-  Encoder.prototype.update = function (input, flush) {
-    for (var i = 0; i < input.length;) {
-      i += this.readByte(input[i])
-    }
-    // consume all output
-    var output = this.output
-    this.output = ''
-    if (flush) {
-      output += this.finish()
-    }
-    return output
-  }
-
-  // Functions analogously to Encoder
-
-  function Decoder() {
-    var skip = 0 // how many bits we have from the previous character
-    var byte = 0 // current byte we're producing
-
-    this.output = ''
-
-    // Consume a character from the stream, store
-    // the output in this.output. As before, better
-    // to use update().
-    this.readChar = function (char) {
-      if (typeof char != 'string') {
-        if (typeof char == 'number') {
-          char = String.fromCharCode(char)
+      // read a character
+      if (decoding) {
+        // decode it
+        chr = input.charAt(i);
+        byteIn = keyString.indexOf(chr);
+        if (chr === pad) {
+          break;
+        } else if (byteIn < 0) {
+          throw 'the character "' + chr + '" is not a member of ' + keyString;
+        }
+      } else {
+        if (arrayData) {
+          byteIn = input[i];
+        } else {
+          byteIn = input.charCodeAt(i);
+        }
+        if ((byteIn | max) !== max) {
+          throw byteIn + " is outside the range 0-" + max;
         }
       }
-      char = char.toLowerCase()
-      var val = lookup()[char]
-      if (typeof val == 'undefined') {
-        // character does not exist in our lookup table
-        return // skip silently. An alternative would be:
-        // throw Error('Could not find character "' + char + '" in lookup table.')
+
+      // shift the buffer to the left and add the new bits
+      buffer = (buffer << bitsIn) | byteIn;
+
+      // as long as there's enough in the buffer for another output...
+      while (size >= bitsOut) {
+        // the new size the buffer will be after an output
+        size -= bitsOut;
+
+        // output the part that lies to the left of that number of bits
+        // by shifting the them to the right
+        write(buffer >> size);
+
+        // remove the bits we wrote from the buffer
+        // by applying a mask with the new size
+        buffer &= mask[size];
       }
-      val <<= 3 // move to the high bits
-      byte |= val >>> skip
-      skip += 5
-      if (skip >= 8) {
-        // we have enough to preduce output
-        this.output += String.fromCharCode(byte)
-        skip -= 8
-        if (skip > 0) byte = (val << (5 - skip)) & 255
-        else byte = 0
+    }
+
+    // If we're encoding and there's input left over, pad the output.
+    // Otherwise, leave the extra bits off, 'cause they themselves are padding
+    if (!decoding && size > 0) {
+
+      // flush the buffer
+      write(buffer << (bitsOut - size));
+
+      // add padding keyString for the remainder of the group
+      len = output.length % group;
+      for (i = 0; i < len; i += 1) {
+        output.push(pad);
       }
-
     }
 
-    this.finish = function (check) {
-      var output = this.output + (skip < 0 ? alphabet[bits >> 3] : '') + (check ? '$' : '')
-      this.output = ''
-      return output
-    }
-  }
-
-  Decoder.prototype.update = function (input, flush) {
-    for (var i = 0; i < input.length; i++) {
-      this.readChar(input[i])
-    }
-    var output = this.output
-    this.output = ''
-    if (flush) {
-      output += this.finish()
-    }
-    return output
-  }
-
-  /** Convenience functions
-   *
-   * These are the ones to use if you just have a string and
-   * want to convert it without dealing with streams and whatnot.
-   */
-
-  // String of data goes in, Base32-encoded string comes out.
-  function encode(input) {
-    var encoder = new Encoder()
-    var output = encoder.update(input, true)
-    return output
-  }
-
-  // Base32-encoded string goes in, decoded data comes out.
-  function decode(input) {
-    var decoder = new Decoder()
-    var output = decoder.update(input, true)
-    return output
-  }
+    // string!
+    return (arrayData && decoding) ? output : output.join('');
+  };
 
   /**
-   * sha1 functions wrap the hash function from Node.js
-   *
-   * Several ways to use this:
-   *
-   *     var hash = base32.sha1('Hello World')
-   *     base32.sha1(process.stdin, function (err, data) {
-   *       if (err) return console.log("Something went wrong: " + err.message)
-   *       console.log("Your SHA1: " + data)
-   *     }
-   *     base32.sha1.file('/my/file/path', console.log)
+   * Encode.  Input and output are strings.
    */
+  encode = function (input) {
+    return translate(input, dataBits, codeBits, false);
+  };
 
-  var crypto, fs
-  function sha1(input, cb) {
-    if (typeof crypto == 'undefined') crypto = require('crypto')
-    var hash = crypto.createHash('sha1')
-    hash.digest = (function (digest) {
-      return function () {
-        return encode(digest.call(this, 'binary'))
-      }
-    })(hash.digest)
-    if (cb) { // streaming
-      if (typeof input == 'string' || Buffer.isBuffer(input)) {
-        try {
-          return cb(null, sha1(input))
-        } catch (err) {
-          return cb(err, null)
-        }
-      }
-      if (!typeof input.on == 'function') return cb({ message: "Not a stream!" })
-      input.on('data', function (chunk) { hash.update(chunk) })
-      input.on('end', function () { cb(null, hash.digest()) })
-      return
-    }
+  /**
+   * Decode.  Input and output are strings.
+   */
+  decode = function (input) {
+    return translate(input, codeBits, dataBits, true);
+  };
 
-    // non-streaming
-    if (input) {
-      return hash.update(input).digest()
-    }
-    return hash
-  }
-  sha1.file = function (filename, cb) {
-    if (filename == '-') {
-      process.stdin.resume()
-      return sha1(process.stdin, cb)
-    }
-    if (typeof fs == 'undefined') fs = require('fs')
-    return fs.stat(filename, function (err, stats) {
-      if (err) return cb(err, null)
-      if (stats.isDirectory()) return cb({ dir: true, message: "Is a directory" })
-      return sha1(require('fs').createReadStream(filename), cb)
-    })
-  }
+  this.encode = encode;
+  this.decode = decode;
+  construct();
+};
 
-  var base32 = {
-    Decoder: Decoder,
-    Encoder: Encoder,
-    encode: encode,
-    decode: decode,
-    sha1: sha1
-  }
+var Base32 = new MinaOTP({
+  dataBits: 8,
+  codeBits: 5,
+  keyString: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567',
+  pad: '='
+});
+var Base64 = new MinaOTP({
+  dataBits: 8,
+  codeBits: 6,
+  keyString: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/',
+  pad: '='
+});
 
-  if (typeof window !== 'undefined') {
-    // we're in a browser - OMG!
-    window.base32 = base32
-  }
-
-  if (typeof module !== 'undefined' && module.exports) {
-    // nodejs/browserify
-    module.exports = base32
-  }
-})();
+module.exports = {
+  encode: Base32.encode,
+  decode: Base32.decode
+}
