@@ -40,5 +40,36 @@ Page({
     let digit = TOTP.now("J22U6B3WIWRRBTAV")
     console.log("J22U6B3WIWRRBTAV")
     console.log(digit)
+  },
+
+  /**
+   * 显示操作菜单
+   */
+  showActionSheet: function () {
+    wx.showActionSheet({
+      itemList: ["扫码", "手动输入"],
+      itemColor: '#000000',
+      success: function(res) {
+        if (0 == res.tapIndex) {
+          wx.scanCode({
+            onlyFromCamera: true,
+            success: function(res) {},
+            fail: function(res) {},
+            complete: function(res) {},
+          })
+        } else if (1 == res.tapIndex) {
+          wx.navigateTo({
+            url: '../form/form',
+            success: function(res) {},
+            fail: function(res) {},
+            complete: function(res) {},
+          })
+        }
+      },
+      fail: function(res) {
+        console.log("显示操作菜单错误")
+      },
+      complete: function(res) {},
+    })
   }
 })
