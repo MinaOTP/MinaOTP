@@ -38,6 +38,7 @@ Page({
    */
   onLoad: function (options) {
     let digit = TOTP.now("J22U6B3WIWRRBTAV")
-    // console.log(digit)
+    console.log("J22U6B3WIWRRBTAV")
+    console.log(digit)
   }
 })

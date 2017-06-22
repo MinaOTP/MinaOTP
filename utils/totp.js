@@ -1,30 +1,31 @@
 // topt
-let CryptoJS = require("cryptojs/cryptojs.js").Crypto
 let base32 = require("base32")
+let jsSHA = require("hmac")
+
 const DEFAULT_INTERVAL = 30
 const DEFAULT_DIGITS = 6
 
 // 基于时间生成token
 function generate(timenow, token) {
-  // console.log(CryptoJS.SHA1)
-  // console.log(byte_secret(token))
-  // console.log(int_to_bytestring(timenow))
-  let hmac = CryptoJS.HMAC(CryptoJS.SHA1, byte_secret(token), int_to_bytestring(timenow))
-  // for (var i = 0; i < hmac.length; i++) {
-  //   console.log(hmac[i].charCodeAt())
-  // }
+  // 获取hmac bytes
+  let hmacObj = new jsSHA("SHA-1", "BYTES")
+  hmacObj.setHMACKey(byte_secret(token), "BYTES")
+  hmacObj.update(int_to_bytestring(timenow))
+  let hmac = hmacObj.getHMAC("BYTES")
+  // bytes对象转换成数组
   let hmac_a = hmac.split("")
-  let offset = hmac_a[hmac_a.length-1] & 0xf
+  let offset = hmac_a[hmac_a.length - 1].charCodeAt() & 0xf
+  // 计算数字
   let code = (
-    (hmac_a[offset] & 0x7f) << 24 |
-    (hmac_a[offset + 1] & 0xff) << 16 |
-    (hmac_a[offset + 2] & 0xff) << 8 |
-    (hmac_a[offset + 3] & 0xff)
+    (hmac_a[offset].charCodeAt() & 0x7f) << 24 |
+    (hmac_a[offset + 1].charCodeAt() & 0xff) << 16 |
+    (hmac_a[offset + 2].charCodeAt() & 0xff) << 8 |
+    (hmac_a[offset + 3].charCodeAt() & 0xff)
   )
   let digits = DEFAULT_DIGITS
   let str_code = (code % 10 ** digits).toString()
   str_code = rjust(str_code, digits)
-  console.log(str_code)
+  return str_code
 }
 
 // 根据计步器格式化时间戳
@@ -67,8 +68,8 @@ function int_to_bytestring(i, padding = 8) {
 
 // token基于base32加密
 function byte_secret(token) {
-  console.log(token)
-  console.log(base32.decode(token))
+  // console.log(token)
+  // console.log(base32.decode(token))
   return base32.decode(token)
 }
 
