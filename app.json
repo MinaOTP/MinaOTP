@@ -1,7 +1,8 @@
 {
   "pages":[
     "pages/token/token",
-    "pages/user/user"
+    "pages/user/user",
+    "pages/form/form"
   ],
   "window":{
     "backgroundTextStyle":"light",
