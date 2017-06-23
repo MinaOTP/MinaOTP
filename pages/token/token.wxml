@@ -4,15 +4,17 @@
     <view class="token-box" wx:for="{{tokens}}" wx:for-item="token" wx:key="token-box">
       <view class="token token-left">
         <view class="issue">
-          <text>{{token.issue}}</text>  
+          <text wx:if="{{null == token.issuer}}"> ,,Ծ‸Ծ,,</text>
+          <text wx:else>{{token.issuer}}</text>
         </view>
         <view class="remark">
-          <text>{{token.remark}}</text>
+          <text wx:if="{{null == token.remark}}">未设置备注信息</text>
+          <text wx:else>{{token.remark}}</text>
         </view>
       </view>
       <view class="token token-right">
         <view class="digit">
-          <text wx:for="{{token.digit}}" wx:for-item="digit" wx:key="digit">{{digit}}</text>
+          <text wx:for="{{token.secret}}" wx:for-item="secret" wx:key="digit">{{secret}}</text>
         </view>
       </view>
     </view>

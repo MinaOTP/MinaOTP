@@ -1,5 +1,6 @@
 // pages/token/token.js
 let TOTP = require('../../utils/totp')
+let util = require('../../utils/util')
 let digits = []
 let tokens = []
 
@@ -28,11 +29,11 @@ Page({
         tokens = res.data
         digits = []
         for (let i = 0; i < tokens.length; i++) {
-          let digit = TOTP.now(tokens[i].token)
+          let secret = TOTP.now(tokens[i].secret)
           let digit_obj = {
-            issue: tokens[i].issue,
+            issuer: tokens[i].issuer,
             remark: tokens[i].remark,
-            digit: digit
+            secret: secret
           }
           digits.push(digit_obj)
           console.log(digits)
@@ -58,7 +59,13 @@ Page({
         if (0 == res.tapIndex) {
           wx.scanCode({
             onlyFromCamera: true,
-            success: function(res) {},
+            success: function(res) {
+              console.log(res.result)
+              let url_obj = util.parseURL(res.result)
+              let url_params = url_obj.params
+              util.addToken(url_params, "scan")
+              console.log(url_params)
+            },
             fail: function(res) {},
             complete: function(res) {},
           })
