@@ -1,5 +1,5 @@
 <!--pages/token/token.wxml-->
-<view class="section">
+<view class="section" wx:if="{{0 != tokens.length}}">
   <view class="token-wrp">
     <view class="token-box" wx:for="{{tokens}}" wx:for-item="token" wx:key="token-box">
       <view class="token token-left">
@@ -16,6 +16,14 @@
         </view>
       </view>
     </view>
+  </view>
+</view>
+<view class="none-tip" wx:else>
+  <view>
+    <icon type="waiting" color="#222222" size="100" />
+  </view>
+  <view>
+    <text>NOTHING</text>
   </view>
 </view>
 <view class="add-btn">

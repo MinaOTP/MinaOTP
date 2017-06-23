@@ -62,3 +62,10 @@ page {
   color: #ff9c10;
   border: 2px solid #222222;
 }
+.none-tip {
+  text-align: center;
+  margin-top: 20vh;
+  color: #222222;
+  font-size: 1.6rem;
+  letter-spacing: .5rem;
+}
