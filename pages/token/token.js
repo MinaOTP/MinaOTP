@@ -63,8 +63,12 @@ Page({
               console.log(res.result)
               let url_obj = util.parseURL(res.result)
               let url_params = url_obj.params
-              util.addToken(url_params, "scan")
-              console.log(url_params)
+              if (null == url_params) {
+                console.log("invalid secret")
+              } else {
+                util.addToken(url_params, "scan")
+                console.log(url_params)
+              }
             },
             fail: function(res) {},
             complete: function(res) {},
