@@ -38,8 +38,13 @@ function timecode(time) {
 
 // 获取定长补零
 function rjust(num, n) {
-  return Array(n > num ? (n - ('' + num).length + 1) : 0).join(String.fromCharCode(0)) + num;
-}
+  var len = num.toString().length;
+  while (len < n) {
+    num = "0" + num;
+    len++;
+  }
+  return num;
+}  
 
 function arr_rjust(arr, n) {
   if (arr.length >= n) {
