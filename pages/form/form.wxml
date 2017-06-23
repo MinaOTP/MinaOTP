@@ -1,16 +1,18 @@
 <!--pages/form/form.wxml-->
-<view class="input-box">
-  <text>Service</text>
-  <input placeholder="服务名称" placeholder-style="color: #222222; font-size: 1rem;" />
-</view>
-<view class="input-box">
-  <text>Account</text>
-  <input placeholder="帐号备注" placeholder-style="color: #222222; font-size: 1rem;" />
-</view>
-<view class="input-box">
-  <text>key</text>
-  <input placeholder="abcd efgh ijkl mnop ..." placeholder-style="color: #222222; font-size: 1rem;" />
-</view>
-<view class="add-btn">
-  <button>提交</button>
-</view>
+<form bindsubmit="keySubmit">
+  <view class="input-box">
+    <text>Service</text>
+    <input name="service" placeholder="服务名称" placeholder-style="color: #222222; font-size: 1rem;" />
+  </view>
+  <view class="input-box">
+    <text>Account</text>
+    <input name="account" placeholder="帐号备注" placeholder-style="color: #222222; font-size: 1rem;" />
+  </view>
+  <view class="input-box">
+    <text>key</text>
+    <input name="key" placeholder="abcd efgh ijkl mnop ..." placeholder-style="color: #222222; font-size: 1rem;" />
+  </view>
+  <view class="add-btn">
+    <button form-type="submit">提交</button>
+  </view>
+</form>
