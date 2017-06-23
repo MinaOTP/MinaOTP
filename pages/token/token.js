@@ -1,27 +1,7 @@
 // pages/token/token.js
-var TOTP = require('../../utils/totp')
-var tokens = [
-  {
-    issue: 'Google',
-    remark: 'gin.lance.inside@hotmail.com',
-    digit: '434342'.split("")
-  },
-  {
-    issue: 'Github',
-    remark: 'LanceGin',
-    digit: '111232'.split("")
-  },
-  {
-    issue: 'Server',
-    remark: 'gin@test',
-    digit: '534154'.split("")
-  },
-  {
-    issue: 'Server',
-    remark: 'gin@mrfan',
-    digit: '423111'.split("")
-  }
-]
+let TOTP = require('../../utils/totp')
+let digits = []
+let tokens = []
 
 Page({
 
@@ -30,16 +10,41 @@ Page({
    */
 
   data: {
-    tokens: tokens
+    tokens: digits
   },
 
   /**
-   * 生命周期函数--监听页面加载
+   * 页面显示时载入
    */
-  onLoad: function (options) {
-    let digit = TOTP.now("J22U6B3WIWRRBTAV")
-    console.log("J22U6B3WIWRRBTAV")
-    console.log(digit)
+  onShow: function (options) {
+    let self = this
+    // let test = TOTP.now("J22U6B3WIWRRBTAV")
+    // console.log("J22U6B3WIWRRBTAV")
+    // console.log(test)
+    // 获取缓存数据
+    wx.getStorage({
+      key: 'token',
+      success: function(res) {
+        tokens = res.data
+        digits = []
+        for (let i = 0; i < tokens.length; i++) {
+          let digit = TOTP.now(tokens[i].token)
+          let digit_obj = {
+            issue: tokens[i].issue,
+            remark: tokens[i].remark,
+            digit: digit
+          }
+          digits.push(digit_obj)
+          console.log(digits)
+          self.setData({
+            tokens: digits
+          })
+        }
+      },
+      fail: function(res) {
+        console.log(res)
+      },
+    })
   },
 
   /**
