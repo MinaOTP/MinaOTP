@@ -58,9 +58,20 @@ Page({
               let url_params = url_obj.params
               if (null == url_params) {
                 console.log("invalid secret")
+                wx.showModal({
+                  content: '无效二维码',
+                  showCancel: false,
+                  confirmText: '返回',
+                  confirmColor: '#ff9c10',
+                })
               } else {
-                util.addToken(url_params, "scan")
-                console.log(url_params)
+                let values = {
+                  issuer: "issuer" in url_params ? url_params.issuer : "",
+                  remark: "remark" in url_params ? url_params.remark : "",
+                  secret: "secret" in url_params ? url_params.secret : ""
+                }
+                util.addToken(values, "scan")
+                console.log(values)
               }
             },
             fail: function(res) {},
