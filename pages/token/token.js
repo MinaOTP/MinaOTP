@@ -65,6 +65,7 @@ Page({
                   confirmColor: '#ff9c10',
                 })
               } else {
+                // 检查二维码是否符合规范
                 let values = {
                   issuer: "issuer" in url_params ? url_params.issuer : "",
                   remark: "remark" in url_params ? url_params.remark : "",

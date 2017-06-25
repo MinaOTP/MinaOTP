@@ -81,8 +81,17 @@ function byte_secret(token) {
 // 获取当前口令
 function now(token) {
   let timenow = timecode(new Date())
-  let digit = generate(timenow, token)
-  return digit
+  // console.log(token.indexOf("0"))
+  // 检查base32加密后的token是否包含异常字符
+  if (token.indexOf("0") >= 0
+    || token.indexOf("1") >= 0
+    || token.indexOf("8") >= 0
+    || token.indexOf("9") >= 0) {
+      return null
+    } else {
+      let digit = generate(timenow, token)
+      return digit
+    }
 }
 
 module.exports = {

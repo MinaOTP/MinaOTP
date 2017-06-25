@@ -1,3 +1,5 @@
+let TOTP = require('totp')
+
 // 获取当前时间秒
 function getSeconds() {
   let now = new Date()
@@ -35,6 +37,15 @@ function addToken(values, path) {
   if ("" == values.secret) {
     wx.showModal({
       content: '忘记KEY了？',
+      showCancel: false,
+      confirmText: '返回',
+      confirmColor: '#ff9c10',
+    })
+  } else if (null == TOTP.now(values.secret)) {
+    console.log(values.secret)
+    console.log(TOTP.now(values.secret))
+    wx.showModal({
+      content: 'KEY不合法',
       showCancel: false,
       confirmText: '返回',
       confirmColor: '#ff9c10',

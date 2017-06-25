@@ -7,11 +7,11 @@
     <view class="token-box" wx:for="{{tokens}}" wx:for-item="token" wx:key="token-box">
       <view class="token token-left">
         <view class="issue">
-          <text wx:if="{{null == token.issuer}}"> ,,Ծ‸Ծ,,</text>
+          <text wx:if="{{'' == token.issuer}}"> ,,Ծ‸Ծ,,</text>
           <text wx:else>{{token.issuer}}</text>
         </view>
         <view class="remark">
-          <text wx:if="{{null == token.remark}}">未设置备注信息</text>
+          <text wx:if="{{'' == token.remark}}">未设置备注信息</text>
           <text wx:else>{{token.remark}}</text>
         </view>
       </view>
