@@ -1,3 +1,9 @@
+// 获取当前时间秒
+function getSeconds() {
+  let now = new Date()
+  return now.getSeconds()
+}
+
 // 解析url
 function parseURL(url) {
   let url_a = url.split("?")
@@ -89,6 +95,7 @@ function addToken(values, path) {
 }
 
 module.exports = {
+  getSeconds: getSeconds,
   addToken: addToken,
   parseURL: parseURL
 }

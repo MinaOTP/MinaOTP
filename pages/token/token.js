@@ -3,6 +3,7 @@ let TOTP = require('../../utils/totp')
 let util = require('../../utils/util')
 let digits = []
 let tokens = []
+let percentage = 0
 
 Page({
 
@@ -11,7 +12,8 @@ Page({
    */
 
   data: {
-    tokens: digits
+    tokens: digits,
+    percentage: percentage
   },
 
   /**
@@ -22,30 +24,21 @@ Page({
     // let test = TOTP.now("J22U6B3WIWRRBTAV")
     // console.log("J22U6B3WIWRRBTAV")
     // console.log(test)
-    // 获取缓存数据
-    wx.getStorage({
-      key: 'token',
-      success: function(res) {
-        tokens = res.data
-        digits = []
-        for (let i = 0; i < tokens.length; i++) {
-          let secret = TOTP.now(tokens[i].secret)
-          let digit_obj = {
-            issuer: tokens[i].issuer,
-            remark: tokens[i].remark,
-            secret: secret
-          }
-          digits.push(digit_obj)
-          console.log(digits)
-          self.setData({
-            tokens: digits
-          })
-        }
-      },
-      fail: function(res) {
-        console.log(res)
-      },
-    })
+
+    // 每秒更新百分比
+    setInterval(function () {
+      // 获取当前秒
+      let ss = util.getSeconds()
+      percentage = ((ss - 0) % 30) / 30 * 100
+      self.setData({
+        percentage: percentage
+      })
+      if (0 == parseInt(percentage)) {
+        self.updateDigits(self)
+      }
+    }, 1000)
+
+    self.updateDigits(self)
   },
 
   /**
@@ -86,6 +79,36 @@ Page({
         console.log("显示操作菜单错误")
       },
       complete: function(res) {},
+    })
+  },
+
+  /**
+   * 更新digits
+   */
+  updateDigits: function (self) {
+    // 获取缓存数据
+    wx.getStorage({
+      key: 'token',
+      success: function (res) {
+        tokens = res.data
+        digits = []
+        for (let i = 0; i < tokens.length; i++) {
+          let secret = TOTP.now(tokens[i].secret)
+          let digit_obj = {
+            issuer: tokens[i].issuer,
+            remark: tokens[i].remark,
+            secret: secret
+          }
+          digits.push(digit_obj)
+        }
+        console.log(digits)
+        self.setData({
+          tokens: digits
+        })
+      },
+      fail: function (res) {
+        console.log(res)
+      },
     })
   }
 })
