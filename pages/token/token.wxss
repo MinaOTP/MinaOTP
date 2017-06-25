@@ -2,6 +2,9 @@
 page {
   background: #0d0d0d;
 }
+.scroll-view {
+  height: 99vh;
+}
 .section {
   background: white;
 }
@@ -60,6 +63,11 @@ page {
   background: #1a1a1a;
   color: #ff9c10;
   border: 2px solid #222222;
+}
+.black {
+  height: 20vh;
+  background: #0d0d0d;
+  border: 0;
 }
 .none-tip {
   text-align: center;
