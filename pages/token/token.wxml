@@ -1,8 +1,8 @@
 <!--pages/token/token.wxml-->
-<view class="section">
-  <progress percent="{{percentage}}" stroke-width="2" activeColor="#ff9c10" backgroundColor="#222222" />
-</view>
 <view class="section" wx:if="{{0 != tokens.length}}">
+  <view>
+    <progress percent="{{percentage}}" stroke-width="2" activeColor="#ff9c10" backgroundColor="#222222" />
+  </view>
   <view class="token-wrp">
     <view class="token-box" wx:for="{{tokens}}" wx:for-item="token" wx:key="token-box">
       <view class="token token-left">
