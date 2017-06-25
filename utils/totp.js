@@ -75,7 +75,7 @@ function int_to_bytestring(i, padding = 8) {
 function byte_secret(token) {
   // console.log(token)
   // console.log(base32.decode(token))
-  return base32.decode(token)
+  return base32.decode(token.toUpperCase())
 }
 
 // 获取当前口令
