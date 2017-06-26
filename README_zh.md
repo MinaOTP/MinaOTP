@@ -8,7 +8,7 @@ The program will generate secure dynamic 2FA tokens for you, and the `add`, `edi
 
 ### 截图
 
-![screenshot](http://orhcxc3kd.bkt.clouddn.com/WechatIMG8.png)
+![screenshot](http://orhcxc3kd.bkt.clouddn.com/WechatIMG8.png?imageView2/2/w/400)
 
 ### 功能
 
