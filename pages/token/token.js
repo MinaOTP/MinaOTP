@@ -52,6 +52,9 @@ Page({
       success: function(res) {
         if (0 == res.tapIndex) {
           console.log("编辑" + e.target.id)
+          wx.navigateTo({
+            url: '../edit/edit?token_id='+e.target.id
+          })
         } else if (1 == res.tapIndex) {
           console.log("删除" + e.target.id)
           util.removeToken(e.target.id)
