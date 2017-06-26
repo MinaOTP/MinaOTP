@@ -1,7 +1,7 @@
 {
   "pages":[
     "pages/token/token",
-    "pages/user/user",
+    "pages/edit/edit",
     "pages/form/form"
   ],
   "window":{
