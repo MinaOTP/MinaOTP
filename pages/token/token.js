@@ -42,6 +42,26 @@ Page({
   },
 
   /**
+   * 编辑或删除token
+   */
+  tokenOperation: function (e) {
+    console.log(e.target.id)
+    wx.showActionSheet({
+      itemList: ["编辑", "删除"],
+      itemColor: '#000000',
+      success: function(res) {
+        if (0 == res.tapIndex) {
+          console.log("编辑" + e.target.id)
+        } else if (1 == res.tapIndex) {
+          console.log("删除" + e.target.id)
+          util.removeToken(e.target.id)
+        }
+      }
+    })
+  },
+  
+
+  /**
    * 显示操作菜单
    */
   showActionSheet: function () {

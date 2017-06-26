@@ -105,8 +105,53 @@ function addToken(values, path) {
   }
 }
 
+// 删除token
+function removeToken(token_id) {
+  let token = []
+  wx.showModal({
+    content: '确定删除吗',
+    showCancel: true,
+    cancelText: '手误',
+    cancelColor: '#929292',
+    confirmText: '确定',
+    confirmColor: '#ff9c10',
+    success: function(res) {
+      if (res.confirm) {
+        // 确定删除
+        wx.getStorage({
+          key: 'token',
+          success: function(res) {
+            token = res.data
+            // 删除指定一位
+            token.splice(token_id, 1)
+            // 重新存储
+            wx.setStorage({
+              key: 'token',
+              data: token,
+              success: function(res) {
+                console.log(res)
+              },
+              fail: function(res) {
+                console.log(res)
+              }
+            })
+          },
+          complete: function(res) {
+            wx.reLaunch({
+              url: 'token',
+            })
+          }
+        })
+      } else if (res.cancel) {
+        console.log("cancelled")
+      }
+    }
+  })
+}
+
 module.exports = {
   getSeconds: getSeconds,
   addToken: addToken,
+  removeToken: removeToken,
   parseURL: parseURL
 }

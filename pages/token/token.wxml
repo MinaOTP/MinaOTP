@@ -5,21 +5,24 @@
   </view>
   <scroll-view class="scroll-view" scroll-y enable-back-to-top>
     <view class="token-wrp">
-      <view class="token-box" wx:for="{{tokens}}" wx:for-item="token" wx:key="token-box">
+      <view class="token-box"wx:for="{{tokens}}" wx:for-item="token" wx:for-index="t_index" wx:key="{{secret}}">
         <view class="token token-left">
           <view class="issue">
             <text wx:if="{{'' == token.issuer}}"> ,,Ծ‸Ծ,,</text>
             <text wx:else>{{token.issuer}}</text>
           </view>
           <view class="remark">
-            <text wx:if="{{'' == token.remark}}">未设置备注信息</text>
+            <text wx:if="{{'' == token.remark}}">点击设置备注信息</text>
             <text wx:else>{{token.remark}}</text>
           </view>
         </view>
         <view class="token token-right">
           <view class="digit">
-            <text wx:for="{{token.secret}}" wx:for-item="secret" wx:key="digit">{{secret}}</text>
+            <text wx:for="{{token.secret}}" wx:for-item="secret" wx:for-index="secret-index" wx:key="*this">{{secret}}</text>
           </view>
+        </view>
+        <view class="token-action">
+          <icon type="info" size="18" color="#ff9c10" id="{{t_index}}" bindtap="tokenOperation"/>
         </view>
       </view>
     </view>
