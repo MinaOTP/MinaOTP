@@ -12,7 +12,7 @@
             <text wx:else>{{token.issuer}}</text>
           </view>
           <view class="remark">
-            <text wx:if="{{'' == token.remark}}">点击设置备注信息</text>
+            <text wx:if="{{'' == token.remark}}">点右侧按钮设置备注信息</text>
             <text wx:else>{{token.remark}}</text>
           </view>
         </view>
