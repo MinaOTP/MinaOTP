@@ -26,7 +26,6 @@
         </view>
       </view>
     </view>
-    <view class="black"></view>
   </scroll-view>
 </block>
 <view class="none-tip" wx:else>

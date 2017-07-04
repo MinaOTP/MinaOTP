@@ -3,7 +3,8 @@ page {
   background: #0d0d0d;
 }
 .scroll-view {
-  height: 99vh;
+  height: 88vh;
+  border-bottom: 2px solid #222222;
 }
 .section {
   background: white;
@@ -12,7 +13,6 @@ page {
   flex-direction: column;
   background: #1a1a1a;
   color: #ffffff;
-  border-bottom: 2px solid #222222;
   padding-left: 4vw;
 }
 .token-box {
@@ -69,11 +69,6 @@ page {
   background: #1a1a1a;
   color: #ff9c10;
   border: 2px solid #222222;
-}
-.black {
-  height: 20vh;
-  background: #0d0d0d;
-  border: 0;
 }
 .none-tip {
   text-align: center;
