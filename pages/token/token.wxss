@@ -25,7 +25,7 @@ page {
   border-bottom: 0;
 }
 .token {
-  width: 43vw;
+  width: 46vw;
   float: left;
 }
 .token-left {
@@ -43,7 +43,6 @@ page {
 .token-right {
   position: relative;
   top: 3vh;
-  padding-left: 1rem;
 }
 .digit {
   font-size: 2.6rem;
@@ -52,12 +51,6 @@ page {
   width: 1ch;
   display: inline-block;
   text-align: center;
-}
-.token-action {
-  float: left;
-  position: relative;
-  width: 6vw;
-  top: 10px;
 }
 .add-btn {
   position: absolute;

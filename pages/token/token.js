@@ -45,19 +45,19 @@ Page({
    * 编辑或删除token
    */
   tokenOperation: function (e) {
-    console.log(e.target.id)
+    console.log(e.currentTarget.id)
     wx.showActionSheet({
       itemList: ["编辑", "删除"],
       itemColor: '#000000',
       success: function(res) {
         if (0 == res.tapIndex) {
-          console.log("编辑" + e.target.id)
+          console.log("编辑" + e.currentTarget.id)
           wx.navigateTo({
-            url: '../edit/edit?token_id='+e.target.id
+            url: '../edit/edit?token_id='+e.currentTarget.id
           })
         } else if (1 == res.tapIndex) {
-          console.log("删除" + e.target.id)
-          util.removeToken(e.target.id)
+          console.log("删除" + e.currentTarget.id)
+          util.removeToken(e.currentTarget.id)
         }
       }
     })
