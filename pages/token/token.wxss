@@ -4,7 +4,8 @@ page {
 }
 .scroll-view {
   height: 88vh;
-  border-bottom: 2px solid #222222;
+  background: #1a1a1a;
+  /*border-bottom: 2px solid #222222;*/
 }
 .section {
   background: white;

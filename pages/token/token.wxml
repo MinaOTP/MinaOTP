@@ -22,7 +22,7 @@
           </view>
         </view>
         <view class="token-action">
-          <icon type="info" size="18" color="#ff9c10" id="{{t_index}}" bindtap="tokenOperation"/>
+          <icon type="info" size="14" color="#ff9c10" id="{{t_index}}" bindtap="tokenOperation"/>
         </view>
       </view>
     </view>
