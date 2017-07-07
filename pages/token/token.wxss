@@ -3,9 +3,8 @@ page {
   background: #0d0d0d;
 }
 .scroll-view {
-  height: 88vh;
-  background: #1a1a1a;
-  /*border-bottom: 2px solid #222222;*/
+  height: 92vh;
+  background: #0d0d0d;
 }
 .section {
   background: white;
@@ -15,6 +14,7 @@ page {
   background: #1a1a1a;
   color: #ffffff;
   padding-left: 4vw;
+  padding-right: 4vw;
 }
 .token-box {
   flex-direction: row;
@@ -25,13 +25,13 @@ page {
   border-bottom: 0;
 }
 .token {
-  width: 43vw;
+  width: 46vw;
   float: left;
 }
 .token-left {
   position: relative;
   left: 4vw;
-  top: 3vh;
+  top: 4vh;
 }
 .issue {
   font-size: 1.4rem;
@@ -41,35 +41,32 @@ page {
   color: #929292;
 }
 .token-right {
+  float: right;
   position: relative;
+  right: 4vw;
   top: 3vh;
-  padding-left: 1rem;
 }
 .digit {
   font-size: 2.6rem;
+  text-align: right;
 }
 .digit text {
   width: 1ch;
   display: inline-block;
   text-align: center;
 }
-.token-action {
-  float: left;
-  position: relative;
-  width: 6vw;
-  top: 10px;
-}
 .add-btn {
   position: absolute;
-  bottom: 2vh;
-  left: 35vw;
-  width: 30vw;
+  bottom: 0;
+  width: 100vw;
 }
 .add-btn button {
-  border-radius: 100px;
+  border-radius: 0;
   background: #1a1a1a;
   color: #ff9c10;
-  border: 2px solid #222222;
+  height: 8vh;
+  padding-top: .4vh;
+  border-top: 2px solid #222222;
 }
 .none-tip {
   text-align: center;
