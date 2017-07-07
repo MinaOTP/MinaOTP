@@ -15,6 +15,7 @@ page {
   background: #1a1a1a;
   color: #ffffff;
   padding-left: 4vw;
+  padding-right: 4vw;
 }
 .token-box {
   flex-direction: row;
@@ -31,7 +32,7 @@ page {
 .token-left {
   position: relative;
   left: 4vw;
-  top: 3vh;
+  top: 4vh;
 }
 .issue {
   font-size: 1.4rem;
@@ -41,11 +42,14 @@ page {
   color: #929292;
 }
 .token-right {
+  float: right;
   position: relative;
+  right: 4vw;
   top: 3vh;
 }
 .digit {
   font-size: 2.6rem;
+  text-align: right;
 }
 .digit text {
   width: 1ch;
