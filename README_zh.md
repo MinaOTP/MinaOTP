@@ -25,6 +25,6 @@ The program will generate secure dynamic 2FA tokens for you, and the `add`, `edi
 ### 计划
 
 1. 备份数据至用户自定义数据库
-2. 优化进度条
+2. 优化进度条 (√)
 
 ### [README](README.md)

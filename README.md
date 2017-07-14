@@ -23,6 +23,6 @@ The program will generate secure dynamic 2FA tokens for you, and the `add`, `edi
 ### Todo
 
 1. backup the datas to user-defined database
-2. update the progress bar and make it more easy and smooth
+2. update the progress bar and make it more easy and smooth (√)
 
 ### [中文文档](README_zh.md)
