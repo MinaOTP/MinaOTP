@@ -13,7 +13,7 @@ Page({
 
   data: {
     tokens: digits,
-    percentage: percentage
+    animationData: {}
   },
 
   /**
@@ -25,15 +25,30 @@ Page({
     // console.log("J22U6B3WIWRRBTAV")
     // console.log(test)
 
+    let sc_width = 0
+    // 获取屏幕宽度
+    wx.getSystemInfo({
+      success: function(res) {
+        sc_width = res.windowWidth
+      },
+    })
+
+    // 定义动画
+    let animation = wx.createAnimation({
+      duration: 1000,
+      timingFunction: "linear",
+      delay: 0,
+    })
     // 每秒更新百分比
     setInterval(function () {
-      // 获取当前秒
-      let ss = util.getSeconds()
-      percentage = ((ss - 0) % 30) / 30 * 100
+      // 更新动画
+      let i = util.getSeconds() % 30 + 1
+      animation.width((sc_width/30 * i)).step()
+
       self.setData({
-        percentage: percentage
+        animationData: animation.export()
       })
-      if (0 == parseInt(percentage)) {
+      if (1 == i) {
         self.updateDigits(self)
       }
     }, 1000)
