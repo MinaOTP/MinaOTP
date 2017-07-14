@@ -23,7 +23,7 @@ function generate(timenow, token) {
     (hmac_a[offset + 3].charCodeAt() & 0xff)
   )
   let digits = DEFAULT_DIGITS
-  let str_code = (code % 10 ** digits).toString()
+  let str_code = (code % Math.pow(10, digits)).toString()
   str_code = rjust(str_code, digits)
   return str_code
 }
