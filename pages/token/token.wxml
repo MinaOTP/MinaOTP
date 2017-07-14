@@ -1,7 +1,7 @@
 <!--pages/token/token.wxml-->
 <block  wx:if="{{0 != tokens.length}}">
-  <view class="section">
-    <progress percent="{{percentage}}" stroke-width="2" activeColor="#ff9c10" backgroundColor="#222222" />
+  <view class="outer-bar">
+    <view class="inner-bar" animation="{{animationData}}"></view>
   </view>
   <scroll-view class="scroll-view" scroll-y enable-back-to-top>
     <view class="token-wrp">
