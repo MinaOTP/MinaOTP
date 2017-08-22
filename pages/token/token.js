@@ -10,10 +10,26 @@ Page({
   /**
    * 页面的初始数据
    */
-
   data: {
     tokens: digits,
     animationData: {}
+  },
+
+  /**
+   * 转发
+   */
+  onShareAppMessage: function (res) {
+    return {
+      title: '便携的二步验证小程序',
+      path: '/page/token',
+      imageUrl: '/utils/icon/demo.png',
+      success: function (res) {
+        // 转发成功
+      },
+      fail: function (res) {
+        // 转发失败
+      }
+    }
   },
 
   /**
