@@ -21,7 +21,7 @@ Page({
   onShareAppMessage: function (res) {
     return {
       title: '便携的二步验证小程序',
-      path: '/page/token',
+      path: '/pages/token/token',
       imageUrl: '/utils/icon/demo.png',
       success: function (res) {
         // 转发成功
