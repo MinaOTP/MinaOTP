@@ -41,6 +41,7 @@ page {
   position: relative;
   left: 4vw;
   top: 4vh;
+  overflow-x: scroll;
 }
 .issue {
   font-size: 1.4rem;
