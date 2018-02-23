@@ -75,8 +75,11 @@ page {
   background: #1a1a1a;
   color: #ff9c10;
   height: 8vh;
+  width: 50vw;
   padding-top: .4vh;
   border-top: 2px solid #222222;
+  float: left;
+  border-right: 2px solid #222222;
 }
 .none-tip {
   text-align: center;

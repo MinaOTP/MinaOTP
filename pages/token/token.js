@@ -149,6 +149,16 @@ Page({
   },
 
   /**
+   * 显示导出菜单
+   */
+  showExportSheet: function () {
+    wx.showActionSheet({
+      itemList: ["导出", "导入"],
+      itemColor: "#000000",
+    })
+  },
+
+  /**
    * 更新digits
    */
   updateDigits: function (self) {
