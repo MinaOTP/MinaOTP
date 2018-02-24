@@ -2,7 +2,8 @@
   "pages":[
     "pages/token/token",
     "pages/edit/edit",
-    "pages/form/form"
+    "pages/form/form",
+    "pages/info/info"
   ],
   "window":{
     "backgroundTextStyle":"light",

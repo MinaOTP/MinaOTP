@@ -151,11 +151,7 @@ Page({
   /**
    * 显示导出菜单
    */
-  showExportSheet: function () {
-    // wx.showActionSheet({
-    //   itemList: ["导出", "导入"],
-    //   itemColor: "#000000",
-    // })
+  gotoInfo: function () {
     // 获取缓存数据
     wx.getStorage({
       key: 'token',
@@ -165,17 +161,11 @@ Page({
         wx.setClipboardData({
           data: JSON.stringify(tokens),
           success: function (res) {
-            // showModal提示成功
-            wx.showModal({
-              title: '提示',
-              content: 'token数据复制成功',
-              success: function (res) {
-                if (res.confirm) {
-                  console.log('用户点击确定')
-                } else if (res.cancel) {
-                  console.log('用户点击取消')
-                }
-              }
+            wx.navigateTo({
+              url: '../info/info',
+              success: function (res) { },
+              fail: function (res) { },
+              complete: function (res) { },
             })
           }
         })

@@ -37,5 +37,5 @@
 </view>
 <view class="add-btn">
   <button bindtap="showActionSheet">添加</button>
-  <button bindtap="showExportSheet">导出</button>
+  <button bindtap="gotoInfo">备份</button>
 </view>
