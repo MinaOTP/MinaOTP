@@ -152,9 +152,37 @@ Page({
    * 显示导出菜单
    */
   showExportSheet: function () {
-    wx.showActionSheet({
-      itemList: ["导出", "导入"],
-      itemColor: "#000000",
+    // wx.showActionSheet({
+    //   itemList: ["导出", "导入"],
+    //   itemColor: "#000000",
+    // })
+    // 获取缓存数据
+    wx.getStorage({
+      key: 'token',
+      success: function (res) {
+        tokens = res.data
+        // 复制数据至剪切板
+        wx.setClipboardData({
+          data: JSON.stringify(tokens),
+          success: function (res) {
+            // showModal提示成功
+            wx.showModal({
+              title: '提示',
+              content: 'token数据复制成功',
+              success: function (res) {
+                if (res.confirm) {
+                  console.log('用户点击确定')
+                } else if (res.cancel) {
+                  console.log('用户点击取消')
+                }
+              }
+            })
+          }
+        })
+      },
+      fail: function (res) {
+        console.log(res)
+      },
     })
   },
 
@@ -167,6 +195,7 @@ Page({
       key: 'token',
       success: function (res) {
         tokens = res.data
+        console.log(111, tokens)
         digits = []
         for (let i = 0; i < tokens.length; i++) {
           let secret = TOTP.now(tokens[i].secret)
@@ -177,7 +206,7 @@ Page({
           }
           digits.push(digit_obj)
         }
-        console.log(digits)
+        console.log(222, digits)
         self.setData({
           tokens: digits
         })
