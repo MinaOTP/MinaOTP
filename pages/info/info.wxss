@@ -1,1 +1,10 @@
 /* pages/info/info.wxss */
+page {
+  background: #0d0d0d;
+}
+.backup-guide {
+  color:#ffffff;
+  padding:10px 20px;
+  line-height:2rem;
+  font-size:1.2rem;
+}

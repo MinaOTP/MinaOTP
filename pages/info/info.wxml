@@ -1,2 +1,33 @@
 <!--pages/info/info.wxml-->
-<text>tokens原始信息已复制至剪贴板</text>
+<view class='backup-guide'>
+  <view>
+    <text>token原始信息已复制至剪贴板（由于小程序文件系统限制，暂不能直接导出文件保存）</text>
+  </view>
+  <view>
+    <text>手动将token原始信息新建保存成json文件后即可在MinaOTP系列产品中同步使用</text>
+  </view>
+  <view>
+    <text>MinaOTP系列产品包括：</text>
+  </view>
+  <view>
+    <text>1. MinaOTP-Shell - 命令行版本的二步验证应用（已上线）</text>
+  </view>
+  <view>
+    <text>2. MinaOTP-Native - Native版本的移动端应用（开发中）</text>
+  </view>
+  <view>
+    <text>3. MinaOTP-Desktop - 桌面版本（Windows，mac）的客户端应用（开发中）</text>
+  </view>
+  <view>
+    <text>系列产品应用源码，下载地址以及使用说明都可在以下GitHub仓库找到</text>
+  </view>
+  <view>
+    <text>https://www.github.com/MinaOTP</text>
+  </view>
+</view>
+
+
+
+
+
+
