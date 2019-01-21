@@ -34,3 +34,11 @@ page {
   color: #ff9c10;
   border: 2px solid #222222;
 }
+.edit-ad {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+}
+.edit-ad ad {
+  margin: 0 auto;
+}

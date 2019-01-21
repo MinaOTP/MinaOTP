@@ -25,6 +25,9 @@
         </view>
       </block>
     </view>
+    <view class="ad">
+      <ad unit-id="adunit-3499d084de3e7e65"></ad>
+    </view>
   </scroll-view>
 </block>
 <view class="none-tip" wx:else>
@@ -34,6 +37,9 @@
   <view>
     <text>NOTHING</text>
   </view>
+  <!-- <view class="ad">
+    <ad unit-id="adunit-3b532cb228ecd5b1"></ad>
+  </view> -->
 </view>
 <view class="add-btn">
   <button bindtap="showActionSheet">添加</button>

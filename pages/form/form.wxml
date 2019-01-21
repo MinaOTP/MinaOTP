@@ -15,4 +15,7 @@
   <view class="add-btn">
     <button form-type="submit">提交</button>
   </view>
+  <view class="form-ad">
+    <ad unit-id="adunit-3313d06c22942ce1"></ad>
+  </view>
 </form>

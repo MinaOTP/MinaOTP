@@ -11,4 +11,7 @@
   <view class="add-btn">
     <button form-type="submit">提交</button>
   </view>
+  <view class="edit-ad">
+    <ad unit-id="adunit-73ddc0600cf87f62"></ad>
+  </view>
 </form>
