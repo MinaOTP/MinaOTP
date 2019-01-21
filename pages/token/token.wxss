@@ -17,7 +17,7 @@ page {
 }
 .scroll-view .ad {
   margin-top: 20px;
-  -webkit-filter: grayscale(100%);filter: grayscale(100%);
+  /* -webkit-filter: grayscale(100%);filter: grayscale(100%); */
 }
 .section {
   background: white;
